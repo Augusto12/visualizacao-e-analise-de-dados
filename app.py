@@ -20,7 +20,7 @@ Projeto de conclusão da disciplina Análise e Visualização de Dados da pós-g
 
 ### Dataset
 
-Para construção deste dashboar foram utilizados duas fontes de dados:
+Para construção deste dashboard foram utilizados duas fontes de dados:
 
 - **Banco de dados publico da Empresa de Pesquisa Energética (arquivos csv e shapefile):**\n
 https://gisepeprd2.epe.gov.br/WebMapEPE/
