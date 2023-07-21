@@ -13,10 +13,12 @@ Projeto de conclusão da disciplina Análise e Visualização de Dados da pós-g
 
 Para construção deste dashboar foram utilizados duas fontes de dados:
 
-- **Banco de dados publico da Empresa de Pesquisa Energética (arquivos csv e shapefile):**\n
+- **Banco de dados publico da Empresa de Pesquisa Energética (arquivos csv e shapefile):**
+  
 https://gisepeprd2.epe.gov.br/WebMapEPE/
 
-- **Mapa do Brasil (arquivo Json) :** \n
+- **Mapa do Brasil (arquivo Json) :**
+  
 https://www.kaggle.com/datasets/thiagobodruk/brazil-geojson?resource=download
 
 
