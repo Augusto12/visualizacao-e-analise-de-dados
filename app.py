@@ -6,6 +6,21 @@ from data_processing import load_data
 
 data = load_data()
 
+# Filtros
+
+st.sidebar.title('Filtros')
+anos_operacao = np.sort(data['ano_operacao'].unique())
+ano_inicial, ano_final = st.sidebar.select_slider(
+    'Selecione a faixa temporal de interesse:',
+    options=anos_operacao,
+    value=(anos_operacao[0], anos_operacao[-1])
+    )
+
+regioes = data['regiao'].unique()
+regiao = st.sidebar.multiselect('Selecione a Região Geográfica:', regioes, default=regioes)
+
+data = data[(data['ano_operacao'] >= ano_inicial) & (data['ano_operacao'] <= ano_final) & (data['regiao'].isin(regiao))]
+
 st.title('Setor Energético Brasileiro')
 
 # Texto de várias linhas
@@ -34,10 +49,6 @@ https://www.kaggle.com/datasets/thiagobodruk/brazil-geojson?resource=download
 
 st.write(texto_multilinhas)
 
-anos_operacao = np.sort(data['ano_operacao'].unique())
-ano_operacao = st.selectbox('Selecione o ano desejado:', anos_operacao)
-
-data = data[data['ano_operacao'] <= ano_operacao]
 
 st.subheader('Gráficos')
 
