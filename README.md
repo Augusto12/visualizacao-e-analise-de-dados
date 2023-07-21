@@ -21,9 +21,4 @@ https://gisepeprd2.epe.gov.br/WebMapEPE/
   
 https://www.kaggle.com/datasets/thiagobodruk/brazil-geojson?resource=download
 
-
-### Shapefile Linhas de transmissão
-
-https://gisepeprd2.epe.gov.br/arcgis/rest/directories/arcgisjobs/download_webmapepe_gpserver/jb26622f663874fbdbf65ef8a7d72af05/scratch/DownloadWebmapEPE.zip
-
 """
