@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 import plotly.graph_objects as go
 
 from data_processing import load_data
@@ -8,8 +9,10 @@ data = load_data()
 st.title('Setor Energético Brasileiro')
 st.text('Escrever algo aqui...')
 
-# st.subheader('Tabelas')
-# st.write(data)
+anos_operacao = np.sort(data['ano_operacao'].unique())
+ano_operacao = st.selectbox('Selecione o ano desejado:', anos_operacao)
+
+data = data[data['ano_operacao'] <= ano_operacao]
 
 st.subheader('Gráficos')
 
