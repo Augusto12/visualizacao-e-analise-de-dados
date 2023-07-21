@@ -8,7 +8,11 @@ def load_data():
 
     subestacoes = subestacoes.fillna('')
     subestacoes['Nome'] = subestacoes['Nome'].str.replace('SE ', '')
-
+    subestacoes['ano_operacao'] = subestacoes['Ano de entrada em operação']
+    subestacoes['ano_operacao'] = subestacoes['ano_operacao'].str.replace('-','0')
+    subestacoes['ano_operacao'] = subestacoes['ano_operacao'].str.replace(' ','0')
+    subestacoes['ano_operacao'] = subestacoes['ano_operacao'].astype(int)
+    
     geosubestacoes = gpd.GeoDataFrame(
         subestacoes,
         geometry=gpd.points_from_xy(subestacoes.Longitude, subestacoes.Latitude),
