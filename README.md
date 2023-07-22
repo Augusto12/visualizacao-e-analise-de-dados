@@ -6,7 +6,7 @@ Projeto de conclusão da disciplina Análise e Visualização de Dados da pós-g
 
 ### Grupo
 
-- Felipe Augusto
+- Felipe Augusto Marques de Alcântra
 - Renato de Castro Lopes
 
 ### Dataset
