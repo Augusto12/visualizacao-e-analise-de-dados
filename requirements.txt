@@ -1,4 +1,7 @@
 streamlit
+streamlit-folium
+numpy
+folium
 geopandas
 pandas
 plotly

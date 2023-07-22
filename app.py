@@ -1,25 +1,30 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
+import geopandas as gpd
 import plotly.graph_objects as go
+import folium
+from streamlit_folium import folium_static
 
 from data_processing import load_data
 
-data = load_data()
+subestacoes, linhas = load_data()
 
 # Filtros
 
 st.sidebar.title('Filtros')
-anos_operacao = np.sort(data['ano_operacao'].unique())
+anos_operacao = np.sort(pd.concat([subestacoes['ano_operacao'],linhas['Ano_Opera']], axis=0))
 ano_inicial, ano_final = st.sidebar.select_slider(
     'Selecione a faixa temporal de interesse:',
     options=anos_operacao,
     value=(anos_operacao[0], anos_operacao[-1])
     )
 
-regioes = data['regiao'].unique()
+regioes = subestacoes['regiao'].unique()
 regiao = st.sidebar.multiselect('Selecione a Região Geográfica:', regioes, default=regioes)
 
-data = data[(data['ano_operacao'] >= ano_inicial) & (data['ano_operacao'] <= ano_final) & (data['regiao'].isin(regiao))]
+subestacoes = subestacoes[(subestacoes['ano_operacao'] >= ano_inicial) & (subestacoes['ano_operacao'] <= ano_final) & (subestacoes['regiao'].isin(regiao))]
+linhas = linhas[(linhas['Ano_Opera'] >= ano_inicial) & (linhas['Ano_Opera'] <= ano_final)]
 
 st.title('Setor Energético Brasileiro')
 
@@ -54,7 +59,7 @@ st.subheader('Gráficos')
 
 # Gráfico de Barras: Subestações por Estado
 
-qtd_subestacoes_estado = data['id'].value_counts()
+qtd_subestacoes_estado = subestacoes['id'].value_counts()
 
 fig = go.Figure(data=[go.Bar(x=qtd_subestacoes_estado.index, y=qtd_subestacoes_estado.values)])
 fig.update_layout(
@@ -67,7 +72,7 @@ st.plotly_chart(fig)
 
 # Gráfico de Barras: Subestações por Região
 
-qtd_subestacoes_regiao = data['regiao'].value_counts()
+qtd_subestacoes_regiao = subestacoes['regiao'].value_counts()
 
 fig = go.Figure(go.Bar(
     x=qtd_subestacoes_regiao.values,
@@ -85,4 +90,38 @@ st.plotly_chart(fig)
 
 # Mapa de Dispersão Geográfico: Distribuição das Subestações
 
-st.map(data)
+st.write("Mapa com as subestações:")
+st.map(subestacoes)
+
+
+# Criar o mapa
+latitude, longitude = -15.7801, -47.9292
+mapa = folium.Map(location=[latitude, longitude], zoom_start=4)
+
+# Adicionar os objetos LineString ao mapa
+for _, linha in linhas.iterrows():
+    linha_geojson = linha['geometry'].__geo_interface__
+    folium.GeoJson(linha_geojson).add_to(mapa)
+
+for _, ponto in subestacoes.iterrows():
+    folium.Circle(
+        location=[ponto['lat'], ponto['lon']],
+        radius=10000,  # Define o raio do círculo (em metros)
+        popup=ponto['Nome'],
+        color='red',  # Define a cor do círculo
+        fill=True,
+        fill_color='red',  # Define a cor de preenchimento do círculo
+        fill_opacity=0.7
+    ).add_to(mapa)
+
+# Exibir o mapa no Streamlit
+st.write("Mapa com as subestações e as linhas de transmissão:")
+folium_static(mapa)
+
+
+
+
+
+
+
+
