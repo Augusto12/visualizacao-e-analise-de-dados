@@ -1,4 +1,4 @@
-# visualizacao-e-analise-de-dados-Setor Energético Brasileiro
+# visualizacao-e-analise-de-dados-Sistema Elétrico de Transmissão Brasileiro
 
 ## Projeto Final
 
