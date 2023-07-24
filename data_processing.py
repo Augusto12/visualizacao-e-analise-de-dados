@@ -4,6 +4,7 @@ import geopandas as gpd
 def load_data():
     subestacoes = pd.read_csv('./data/subestacoes-base-existentes.csv')
     linhas = gpd.read_file("./data/Linhas_de_Transmissão_-_Base_Existente.shp")
+    #Necessario tambem estar na pasta os arquivos .shx e .dbf
     estados_regioes_brasil = pd.read_csv('./data/estados-regioes.csv')
     geodados_brasil = gpd.read_file('./data/geodados-brasil.json')
 
